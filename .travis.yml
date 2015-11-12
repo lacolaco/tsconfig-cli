@@ -1,0 +1,6 @@
+language: node_js
+notifications:
+  email: never
+node_js:
+  - "5.0"
+  - "4.2"

@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+"use strict";
+
+var _commander = require("commander");
+
+var _commander2 = _interopRequireDefault(_commander);
+
+var _tsconfig = require("tsconfig");
+
+var tsconfig = _interopRequireWildcard(_tsconfig);
+
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = require("path");
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_commander2.default.version("0.0.1").usage("[options] filepath").option("-u, --update", "Update tsconfig.file").parse(process.argv);
+
+var opt = {};
+opt.args = _commander2.default.args;
+
+new Promise(function (resolve, reject) {
+  // Validate process arguments
+  if (opt.args.length > 1) {
+    reject("only 1 argument required");
+  }
+  resolve();
+}).then(function () {
+  // Check file existence
+  var cfgPath = _commander2.default.args[0] || "./tsconfig.json";
+  return new Promise(function (resolve, reject) {
+    _fs2.default.stat(cfgPath, function (err) {
+      if (err) {
+        reject(_path2.default.resolve(cfgPath) + " not exist");
+      }
+      resolve(cfgPath);
+    });
+  });
+}).then(function (cfgPath) {
+  // Load tsconfig.json
+  opt.cfgPath = cfgPath;
+  var projectDir = _path2.default.dirname(cfgPath);
+  return tsconfig.load(projectDir).then(function (result) {
+    // Resolve files into relative path
+    var resolved = [];
+    result.files.forEach(function (file) {
+      resolved.push(_path2.default.relative(projectDir, file));
+    });
+    result.files = resolved;
+    return result;
+  });
+}).then(function (tsconfig) {
+  // Output
+  if (_commander2.default.update) {
+    // Overwrite tsconfig.json
+    _fs2.default.writeFile(opt.cfgPath, JSON.stringify(tsconfig, null, 2));
+  } else {
+    console.log(JSON.stringify(tsconfig, null, 2));
+  }
+}).catch(function (err) {
+  console.error("[tsconfig] " + err);
+  process.exit(1);
+});

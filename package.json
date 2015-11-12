@@ -1,0 +1,29 @@
+{
+  "name": "tsconfig-cli",
+  "version": "0.0.1",
+  "description": "[![Build Status](https://travis-ci.org/laco0416/tsconfig-cli.svg)](https://travis-ci.org/laco0416/tsconfig-cli)",
+  "main": "index.babel.js",
+  "scripts": {
+    "setup": "npm install",
+    "build": "babel index.babel.js -o tsconfig && babel test.babel.js -o test.js",
+    "test": "npm run build && node tsconfig misc/tsconfig.json -u && mocha test.js"
+  },
+  "bin": {
+    "tsconfig": "tsconfig"
+  },
+  "keywords": [
+    "typescript",
+    "tsconfig"
+  ],
+  "author": "laco0416 <laco0416@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "tsconfig": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.1.4",
+    "babel-preset-es2015": "^6.1.4",
+    "mocha": "^2.3.3"
+  }
+}
