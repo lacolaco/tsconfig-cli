@@ -1,6 +1,6 @@
 {
   "name": "tsconfig-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A CLI for tsconfig",
   "main": "index.babel.js",
   "scripts": {
