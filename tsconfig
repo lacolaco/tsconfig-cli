@@ -25,6 +25,7 @@ _commander2.default.version("0.0.1").usage("[options] filepath").option("-u, --u
 
 var opt = {};
 opt.args = _commander2.default.args;
+opt.update = _commander2.default.update || false;
 
 new Promise(function (resolve, reject) {
   // Validate process arguments
@@ -34,7 +35,7 @@ new Promise(function (resolve, reject) {
   resolve();
 }).then(function () {
   // Check file existence
-  var cfgPath = _commander2.default.args[0] || "./tsconfig.json";
+  var cfgPath = opt.args[0] || "./tsconfig.json";
   return new Promise(function (resolve, reject) {
     _fs2.default.stat(cfgPath, function (err) {
       if (err) {
@@ -58,7 +59,7 @@ new Promise(function (resolve, reject) {
   });
 }).then(function (tsconfig) {
   // Output
-  if (_commander2.default.update) {
+  if (opt.update) {
     // Overwrite tsconfig.json
     _fs2.default.writeFile(opt.cfgPath, JSON.stringify(tsconfig, null, 2));
   } else {

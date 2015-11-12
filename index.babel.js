@@ -13,6 +13,7 @@ program
 
 let opt = {};
 opt.args = program.args;
+opt.update = program.update || false;
 
 new Promise((resolve, reject) => {
   // Validate process arguments
@@ -22,7 +23,7 @@ new Promise((resolve, reject) => {
   resolve();
 }).then(()=> {
   // Check file existence
-  let cfgPath = program.args[0] || "./tsconfig.json";
+  let cfgPath = opt.args[0] || "./tsconfig.json";
   return new Promise((resolve, reject) => {
     fs.stat(cfgPath, (err) => {
       if (err) {
@@ -48,7 +49,7 @@ new Promise((resolve, reject) => {
     });
 }).then((tsconfig) => {
   // Output
-  if (program.update) {
+  if (opt.update) {
     // Overwrite tsconfig.json
     fs.writeFile(opt.cfgPath, JSON.stringify(tsconfig, null, 2))
   } else {
