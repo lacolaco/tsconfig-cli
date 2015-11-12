@@ -1,7 +1,7 @@
 {
   "name": "tsconfig-cli",
   "version": "0.0.1",
-  "description": "[![Build Status](https://travis-ci.org/laco0416/tsconfig-cli.svg)](https://travis-ci.org/laco0416/tsconfig-cli)",
+  "description": "A CLI for tsconfig",
   "main": "index.babel.js",
   "scripts": {
     "setup": "npm install",
@@ -16,6 +16,7 @@
     "tsconfig"
   ],
   "author": "laco0416 <laco0416@gmail.com>",
+  "repository": "https://github.com/laco0416/tsconfig-cli",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
