@@ -7,7 +7,8 @@ import path from "path";
 
 program
   .version("0.0.1")
-  .usage(`[options] filepath`)
+  .usage(`[options] filepath
+  if the file includes comments, those will be striped.`)
   .option("-u, --update", "Update tsconfig.file")
   .parse(process.argv);
 
@@ -33,11 +34,11 @@ new Promise((resolve, reject) => {
     });
   });
 }).then((cfgPath) => {
-  // Load tsconfig.json
-  opt.cfgPath = cfgPath;
   let projectDir = path.dirname(cfgPath);
+  // Load tsconfig.json
+  opt.cfgPath = `${projectDir}/tsconfig.json`;
   return tsconfig
-    .load(projectDir)
+    .readFile(cfgPath)
     .then((result)=> {
       // Resolve files into relative path
       let resolved = [];

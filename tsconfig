@@ -21,7 +21,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_commander2.default.version("0.0.1").usage("[options] filepath").option("-u, --update", "Update tsconfig.file").parse(process.argv);
+_commander2.default.version("0.0.3").usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.file").parse(process.argv);
 
 var opt = {};
 opt.args = _commander2.default.args;
@@ -45,10 +45,10 @@ new Promise(function (resolve, reject) {
     });
   });
 }).then(function (cfgPath) {
-  // Load tsconfig.json
-  opt.cfgPath = cfgPath;
   var projectDir = _path2.default.dirname(cfgPath);
-  return tsconfig.load(projectDir).then(function (result) {
+  // Load tsconfig.json
+  opt.cfgPath = projectDir + "/tsconfig.json";
+  return tsconfig.readFile(cfgPath).then(function (result) {
     // Resolve files into relative path
     var resolved = [];
     result.files.forEach(function (file) {
