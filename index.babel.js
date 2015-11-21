@@ -35,12 +35,12 @@ new Promise((resolve, reject) => {
       resolve(cfgPath);
     });
   });
-}).then((cfgPath) => {
-  let projectDir = path.dirname(cfgPath);
+}).then((inputPath) => {
+  let projectDir = path.dirname(inputPath);
+  opt.outputPath = `${projectDir}/${FILE_NAME}`;
   // Load tsconfig.json
-  opt.cfgPath = `${projectDir}/${FILE_NAME}`;
   return tsconfig
-    .readFile(cfgPath)
+    .readFile(inputPath)
     .then((result)=> {
       // Resolve files into relative path
       let resolved = [];
@@ -54,7 +54,7 @@ new Promise((resolve, reject) => {
   // Output
   if (opt.update) {
     // Overwrite tsconfig.json
-    fs.writeFile(opt.cfgPath, JSON.stringify(tsconfig, null, 2))
+    fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 2))
   } else {
     console.log(JSON.stringify(tsconfig, null, 2));
   }
