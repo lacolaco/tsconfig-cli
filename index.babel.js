@@ -5,6 +5,8 @@ import * as tsconfig from "tsconfig";
 import fs from "fs";
 import path from "path";
 
+const FILE_NAME = "tsconfig.json";
+
 program
   .version("0.0.1")
   .usage(`[options] filepath
@@ -24,7 +26,7 @@ new Promise((resolve, reject) => {
   resolve();
 }).then(()=> {
   // Check file existence
-  let cfgPath = opt.args[0] || "./tsconfig.json";
+  let cfgPath = opt.args[0] || FILE_NAME;
   return new Promise((resolve, reject) => {
     fs.stat(cfgPath, (err) => {
       if (err) {
@@ -36,7 +38,7 @@ new Promise((resolve, reject) => {
 }).then((cfgPath) => {
   let projectDir = path.dirname(cfgPath);
   // Load tsconfig.json
-  opt.cfgPath = `${projectDir}/tsconfig.json`;
+  opt.cfgPath = `${projectDir}/${FILE_NAME}`;
   return tsconfig
     .readFile(cfgPath)
     .then((result)=> {

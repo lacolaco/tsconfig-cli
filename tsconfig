@@ -21,7 +21,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_commander2.default.version("0.0.3").usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.file").parse(process.argv);
+var FILE_NAME = "tsconfig.json";
+
+_commander2.default.version("0.0.1").usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.file").parse(process.argv);
 
 var opt = {};
 opt.args = _commander2.default.args;
@@ -35,7 +37,7 @@ new Promise(function (resolve, reject) {
   resolve();
 }).then(function () {
   // Check file existence
-  var cfgPath = opt.args[0] || "./tsconfig.json";
+  var cfgPath = opt.args[0] || FILE_NAME;
   return new Promise(function (resolve, reject) {
     _fs2.default.stat(cfgPath, function (err) {
       if (err) {
@@ -47,7 +49,7 @@ new Promise(function (resolve, reject) {
 }).then(function (cfgPath) {
   var projectDir = _path2.default.dirname(cfgPath);
   // Load tsconfig.json
-  opt.cfgPath = projectDir + "/tsconfig.json";
+  opt.cfgPath = projectDir + "/" + FILE_NAME;
   return tsconfig.readFile(cfgPath).then(function (result) {
     // Resolve files into relative path
     var resolved = [];
