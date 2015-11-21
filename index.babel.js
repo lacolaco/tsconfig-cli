@@ -8,7 +8,7 @@ import path from "path";
 const FILE_NAME = "tsconfig.json";
 
 program
-  .version("0.1.0")
+  .version("0.1.1")
   .usage(`[options] filepath
   if the file includes comments, those will be striped.`)
   .option("-u, --update", "Update tsconfig.json")
