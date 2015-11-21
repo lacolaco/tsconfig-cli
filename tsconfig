@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var FILE_NAME = "tsconfig.json";
 
-_commander2.default.version("0.0.1").usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.json").parse(process.argv);
+_commander2.default.version("0.1.0").usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.json").parse(process.argv);
 
 var opt = {};
 opt.args = _commander2.default.args;
@@ -63,9 +63,9 @@ new Promise(function (resolve, reject) {
   // Output
   if (opt.update) {
     // Overwrite tsconfig.json
-    _fs2.default.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 2));
+    _fs2.default.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4));
   } else {
-    console.log(JSON.stringify(tsconfig, null, 2));
+    console.log(JSON.stringify(tsconfig, null, 4));
   }
 }).catch(function (err) {
   console.error("[tsconfig] " + err);
