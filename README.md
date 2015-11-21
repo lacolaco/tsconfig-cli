@@ -34,3 +34,58 @@ npm i --save-dev tsconfig-cli
   ]
 }
 ```
+
+## Important: JSON With Comments
+tsconfig-cli allows comments (this is a feature planned in typescript 1.8), but updated json has no comments.
+tsconfig-cli updates **always** `tsconfig.json`. So If you want to use json comments, you should rename the file. 
+
+### Sample
+
+misc/tsconfig.commented.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "outDir": "dist"
+  },
+  "filesGlob": [
+    "src/**/*.ts",
+    "!ignored/**/*.ts"
+  ],
+  /* GENERATED: DON'T EDIT*/
+  "files": [
+  ]
+}
+```
+
+update json
+
+```
+tsconfig misc/tsconfig.commented.json -u # this update misc/tsconfig.json
+```
+
+output: misc/tsconfig.json
+without comments.
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "outDir": "dist"
+  },
+  "filesGlob": [
+    "src/**/*.ts",
+    "!ignored/**/*.ts"
+  ],
+  "files": [
+    "src/bar.ts",
+    "src/foo.ts"
+  ]
+}
+```
+

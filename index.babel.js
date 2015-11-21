@@ -5,10 +5,13 @@ import * as tsconfig from "tsconfig";
 import fs from "fs";
 import path from "path";
 
+const FILE_NAME = "tsconfig.json";
+
 program
   .version("0.0.1")
-  .usage(`[options] filepath`)
-  .option("-u, --update", "Update tsconfig.file")
+  .usage(`[options] filepath
+  if the file includes comments, those will be striped.`)
+  .option("-u, --update", "Update tsconfig.json")
   .parse(process.argv);
 
 let opt = {};
@@ -23,7 +26,7 @@ new Promise((resolve, reject) => {
   resolve();
 }).then(()=> {
   // Check file existence
-  let cfgPath = opt.args[0] || "./tsconfig.json";
+  let cfgPath = opt.args[0] || FILE_NAME;
   return new Promise((resolve, reject) => {
     fs.stat(cfgPath, (err) => {
       if (err) {
@@ -32,12 +35,12 @@ new Promise((resolve, reject) => {
       resolve(cfgPath);
     });
   });
-}).then((cfgPath) => {
+}).then((inputPath) => {
+  let projectDir = path.dirname(inputPath);
+  opt.outputPath = `${projectDir}/${FILE_NAME}`;
   // Load tsconfig.json
-  opt.cfgPath = cfgPath;
-  let projectDir = path.dirname(cfgPath);
   return tsconfig
-    .load(projectDir)
+    .readFile(inputPath)
     .then((result)=> {
       // Resolve files into relative path
       let resolved = [];
@@ -51,7 +54,7 @@ new Promise((resolve, reject) => {
   // Output
   if (opt.update) {
     // Overwrite tsconfig.json
-    fs.writeFile(opt.cfgPath, JSON.stringify(tsconfig, null, 2))
+    fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 2))
   } else {
     console.log(JSON.stringify(tsconfig, null, 2));
   }
