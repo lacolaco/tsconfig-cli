@@ -11,7 +11,7 @@ program
   .version("0.0.1")
   .usage(`[options] filepath
   if the file includes comments, those will be striped.`)
-  .option("-u, --update", "Update tsconfig.file")
+  .option("-u, --update", "Update tsconfig.json")
   .parse(process.argv);
 
 let opt = {};
