@@ -54,9 +54,9 @@ new Promise((resolve, reject) => {
   // Output
   if (opt.update) {
     // Overwrite tsconfig.json
-    fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 2))
+    fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4))
   } else {
-    console.log(JSON.stringify(tsconfig, null, 2));
+    console.log(JSON.stringify(tsconfig, null, 4));
   }
 }).catch((err)=> {
   console.error(`[tsconfig] ${err}`);

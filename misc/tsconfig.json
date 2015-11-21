@@ -1,16 +1,16 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "outDir": "dist"
-  },
-  "filesGlob": [
-    "src/**/*.ts",
-    "!ignored/**/*.ts"
-  ],
-  "files": [
-    "src/bar.ts",
-    "src/foo.ts"
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "dist"
+    },
+    "filesGlob": [
+        "src/**/*.ts",
+        "!ignored/**/*.ts"
+    ],
+    "files": [
+        "src/bar.ts",
+        "src/foo.ts"
+    ]
 }

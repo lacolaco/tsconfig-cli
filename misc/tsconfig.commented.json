@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "outDir": "dist"
-  },
-  "filesGlob": [
-    "src/**/*.ts",
-    "!ignored/**/*.ts"
-  ],
-  /* GENERATED: DON'T EDIT*/
-  "files": [
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "dist"
+    },
+    "filesGlob": [
+        "src/**/*.ts",
+        "!ignored/**/*.ts"
+    ],
+    /* GENERATED: DON'T EDIT */
+    "files": [
+    ]
 }
