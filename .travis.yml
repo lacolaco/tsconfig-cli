@@ -4,6 +4,3 @@ notifications:
 node_js:
   - "5.0"
   - "4.2"
-deploy:
-  on:
-    all_branches: false
