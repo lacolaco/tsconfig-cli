@@ -1,6 +1,6 @@
 # tsconfig-cli
 
-[![Build Status](https://travis-ci.org/laco0416/tsconfig-cli.svg)](https://travis-ci.org/laco0416/tsconfig-cli)
+[![Build Status](https://travis-ci.org/laco0416/tsconfig-cli.svg?branch=master)](https://travis-ci.org/laco0416/tsconfig-cli)
 
 A CLI of [https://github.com/TypeStrong/tsconfig](https://github.com/TypeStrong/tsconfig)
 
