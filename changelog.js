@@ -1,5 +1,6 @@
 const conventionalChangelog = require('conventional-changelog');
+const fs = require('fs');
 
 conventionalChangelog({
   preset: 'angular'
-}).pipe(process.stdout);
+}).pipe(fs.createWriteStream('CHANGELOG.md'));
