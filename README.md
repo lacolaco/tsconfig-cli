@@ -1,6 +1,7 @@
 # tsconfig-cli
 
 [![Build Status](https://travis-ci.org/laco0416/tsconfig-cli.svg?branch=master)](https://travis-ci.org/laco0416/tsconfig-cli)
+[![npm version](https://badge.fury.io/js/tsconfig-cli.svg)](https://badge.fury.io/js/tsconfig-cli)
 
 A CLI of [https://github.com/TypeStrong/tsconfig](https://github.com/TypeStrong/tsconfig)
 
