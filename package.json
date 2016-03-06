@@ -2,11 +2,11 @@
   "name": "tsconfig-cli",
   "version": "0.1.1",
   "description": "A CLI for tsconfig",
-  "main": "index.babel.js",
+  "main": "index.js",
   "scripts": {
     "setup": "npm install",
-    "build": "babel index.babel.js -o tsconfig && babel test.babel.js -o test.js",
-    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u && mocha test.js",
+    "build": "babel index.js -o tsconfig && babel test.js -o test.transpiled.js",
+    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u && mocha test.transpiled.js",
     "changelog": "node changelog.js",
     "postversion": "npm run changelog && git add CHANGELOG.md && git commit -m 'chore(docs): update CHANGELOG.md'"
   },
