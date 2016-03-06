@@ -10,9 +10,12 @@ const changelogStream = fs.createWriteStream('CHANGELOG.md');
 const config = {
   preset: 'angular',
   releaseCount: 1,
-  debug: console.log.bind(console),
 };
 
-cl(config).on('error', (err) => {
-  console.error('Failed to generate changelog: ' + err);
-}).pipe(changelogStream);
+module.exports = (cb) => {
+  cl(config).on('error', (err) => {
+    console.error('Failed to generate changelog: ' + err);
+  }).on('end', ()=> {
+    cb();
+  }).pipe(changelogStream);
+};
