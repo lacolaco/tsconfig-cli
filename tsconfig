@@ -71,9 +71,10 @@ new Promise(function (resolve, reject) {
   });
 }).then(function (tsconfig) {
   // Output
+  var p = void 0;
   if (opt.update) {
     // Overwrite tsconfig.json
-    return new Promise(function (resolve, reject) {
+    p = new Promise(function (resolve, reject) {
       _fs2.default.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4), function (err) {
         if (err) {
           reject(err);
@@ -85,7 +86,9 @@ new Promise(function (resolve, reject) {
     });
   } else {
     console.log(JSON.stringify(tsconfig, null, 4));
+    p = Promise.resolve(true);
   }
+  return p;
 }).then(function () {
   // Completed
   log("\tFinished!");
