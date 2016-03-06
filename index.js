@@ -8,15 +8,25 @@ import path from "path";
 const FILE_NAME = "tsconfig.json";
 
 program
-  .version("0.1.1")
+  .version(require("./package.json").version)
   .usage(`[options] filepath
   if the file includes comments, those will be striped.`)
   .option("-u, --update", "Update tsconfig.json")
+  .option("-v, --verbose", "Print verbose logs")
   .parse(process.argv);
 
 let opt = {};
 opt.args = program.args;
 opt.update = program.update || false;
+opt.verbose = program.verbose || false;
+
+const log = (str) => {
+  if(opt.verbose) {
+    console.log(str);
+  }
+};
+
+log(`tsconfig-cli@${program.version()} is running.`);
 
 new Promise((resolve, reject) => {
   // Validate process arguments
@@ -36,6 +46,7 @@ new Promise((resolve, reject) => {
     });
   });
 }).then((inputPath) => {
+  log(`\tInput:\t"${inputPath}"`);
   let projectDir = path.dirname(inputPath);
   opt.outputPath = `${projectDir}/${FILE_NAME}`;
   // Load tsconfig.json
@@ -54,10 +65,22 @@ new Promise((resolve, reject) => {
   // Output
   if (opt.update) {
     // Overwrite tsconfig.json
-    fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4))
+    return new Promise((resolve, reject) => {
+      fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4), (err) => {
+        if(err) {
+          reject(err);
+          return;
+        }
+        log(`\tOutput:\t"${opt.outputPath}"`);
+        resolve();
+      });
+    });
   } else {
     console.log(JSON.stringify(tsconfig, null, 4));
   }
+}).then(()=> {
+  // Completed
+  log(`\tFinished!`);
 }).catch((err)=> {
   console.error(`[tsconfig] ${err}`);
   process.exit(1);

@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "npm install",
     "build": "babel index.js -o tsconfig && babel test.js -o test.transpiled.js",
-    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u && mocha test.transpiled.js",
+    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u -v && mocha test.transpiled.js",
     "changelog": "node changelog.js",
     "postversion": "npm run changelog && git add CHANGELOG.md && git commit -m 'chore(docs): update CHANGELOG.md'"
   },
