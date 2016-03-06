@@ -6,7 +6,9 @@
   "scripts": {
     "setup": "npm install",
     "build": "babel index.babel.js -o tsconfig && babel test.babel.js -o test.js",
-    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u && mocha test.js"
+    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u && mocha test.js",
+    "changelog": "node changelog.js",
+    "postversion": "npm run changelog && git add CHANGELOG.md && git commit -m 'chore(docs): update CHANGELOG.md'"
   },
   "bin": {
     "tsconfig": "tsconfig"
@@ -25,6 +27,7 @@
   "devDependencies": {
     "babel-cli": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
+    "conventional-changelog": "^1.1.0",
     "mocha": "^2.3.4"
   }
 }
