@@ -23,11 +23,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var FILE_NAME = "tsconfig.json";
 
-_commander2.default.version("0.1.1").usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.json").parse(process.argv);
+_commander2.default.version(require("./package.json").version).usage("[options] filepath\n  if the file includes comments, those will be striped.").option("-u, --update", "Update tsconfig.json").option("-v, --verbose", "Print verbose logs").parse(process.argv);
 
 var opt = {};
 opt.args = _commander2.default.args;
 opt.update = _commander2.default.update || false;
+opt.verbose = _commander2.default.verbose || false;
+
+var log = function log(str) {
+  if (opt.verbose) {
+    console.log(str);
+  }
+};
+
+log("tsconfig-cli@" + _commander2.default.version() + " is running.");
 
 new Promise(function (resolve, reject) {
   // Validate process arguments
@@ -47,6 +56,7 @@ new Promise(function (resolve, reject) {
     });
   });
 }).then(function (inputPath) {
+  log("\tInput:\t\"" + inputPath + "\"");
   var projectDir = _path2.default.dirname(inputPath);
   opt.outputPath = projectDir + "/" + FILE_NAME;
   // Load tsconfig.json
@@ -63,10 +73,22 @@ new Promise(function (resolve, reject) {
   // Output
   if (opt.update) {
     // Overwrite tsconfig.json
-    _fs2.default.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4));
+    return new Promise(function (resolve, reject) {
+      _fs2.default.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4), function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        log("\tOutput:\t\"" + opt.outputPath + "\"");
+        resolve();
+      });
+    });
   } else {
     console.log(JSON.stringify(tsconfig, null, 4));
   }
+}).then(function () {
+  // Completed
+  log("\tFinished!");
 }).catch(function (err) {
   console.error("[tsconfig] " + err);
   process.exit(1);
