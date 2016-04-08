@@ -9,7 +9,7 @@
 
 ### BREAKING CHANGES
 
-* core: S
+* core: 
 
 When you use `-u` option, an input file will be overwritten ALWAYS.
 
