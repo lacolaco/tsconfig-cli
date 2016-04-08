@@ -5,19 +5,19 @@ import * as tsconfig from "tsconfig";
 import fs from "fs";
 import path from "path";
 
-const FILE_NAME = "tsconfig.json";
-
 program
   .version(require("./package.json").version)
   .usage(`[options] filepath
   if the file includes comments, those will be striped.`)
-  .option("-u, --update", "Update tsconfig.json")
+  .option("-u, --update", "Update the file")
+  .option("-o, --output <output>", "Output file path")
   .option("-v, --verbose", "Print verbose logs")
   .parse(process.argv);
 
 let opt = {};
 opt.args = program.args;
 opt.update = program.update || false;
+opt.output = program.output || "";
 opt.verbose = program.verbose || false;
 
 const log = str => {
@@ -36,7 +36,7 @@ new Promise((resolve, reject) => {
   resolve();
 }).then(() => {
   // Check file existence
-  let cfgPath = opt.args[0] || FILE_NAME;
+  let cfgPath = opt.args[0] || "tsconfig.json";
   return new Promise((resolve, reject) => {
     fs.stat(cfgPath, err => {
       if (err) {
@@ -48,7 +48,11 @@ new Promise((resolve, reject) => {
 }).then(inputPath => {
   log(`\tInput:\t"${inputPath}"`);
   let projectDir = path.dirname(inputPath);
-  opt.outputPath = `${projectDir}/${FILE_NAME}`;
+  if (opt.output) {
+    opt.outputPath = path.resolve(projectDir, opt.output);
+  } else {
+    opt.outputPath = `${projectDir}/${path.basename(inputPath)}`;
+  }
   // Load tsconfig.json
   return tsconfig
     .readFile(inputPath)
@@ -64,7 +68,7 @@ new Promise((resolve, reject) => {
 }).then(tsconfig => {
   // Output
   let p;
-  if (opt.update) {
+  if (opt.update || opt.output) {
     // Overwrite tsconfig.json
     p = new Promise((resolve, reject) => {
       fs.writeFile(opt.outputPath, JSON.stringify(tsconfig, null, 4), err => {

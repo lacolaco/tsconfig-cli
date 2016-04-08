@@ -6,11 +6,7 @@
         "outDir": "dist"
     },
     "filesGlob": [
-        "src/**/*.ts",
-        "!ignored/**/*.ts"
-    ],
-    "files": [
-        "src/bar.ts",
-        "src/foo.ts"
+        "../src/**/*.ts",
+        "!../src/ignored/**/*.ts"
     ]
 }
