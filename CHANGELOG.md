@@ -1,3 +1,34 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/laco0416/tsconfig-cli/compare/v1.0.2...v2.0.0) (2016-04-08)
+
+
+### Features
+
+* **core:** add output option ([ec9abdb](https://github.com/laco0416/tsconfig-cli/commit/ec9abdb))
+
+
+### BREAKING CHANGES
+
+* core: S
+
+When you use `-u` option, an input file will be overwritten ALWAYS.
+
+ If you want to separate input and output files, use `-o` option.
+
+ BEFORE:
+
+ ```
+ $ tsconfig -u tsconfig.proto.json
+ ```
+
+ AFTER
+
+ ```
+ $ tsconfig -o tsconfig.json tsconfig.proto.json
+ ```
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/laco0416/tsconfig-cli/compare/v1.0.1...v1.0.2) (2016-03-06)
 
