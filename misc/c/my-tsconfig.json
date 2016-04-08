@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "dist"
+    },
+    "filesGlob": [
+        "../src/**/*.ts",
+        "!../src/ignored/**/*.ts"
+    ]
+}

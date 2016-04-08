@@ -7,7 +7,7 @@
     "setup": "npm install",
     "build": "babel index.js -o tsconfig && babel test.js -o test.transpiled.js",
     "pretest": "eslint index.js",
-    "test": "npm run build && node tsconfig misc/tsconfig.commented.json -u -v && mocha test.transpiled.js",
+    "test": "npm run build && mocha test.transpiled.js",
     "postversion": "npm run changelog",
     "changelog": "node tools/changelog.js",
     "postchangelog": "git add -u && git commit -m 'docs(changelog): Update CHANGELOG.md'"
@@ -20,7 +20,9 @@
     "tsconfig"
   ],
   "author": "laco0416 <laco0416@gmail.com>",
-  "repository": "https://github.com/laco0416/tsconfig-cli",
+  "repository": {
+    "url": "https://github.com/laco0416/tsconfig-cli"
+  },
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",

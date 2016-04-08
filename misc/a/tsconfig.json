@@ -6,10 +6,7 @@
         "outDir": "dist"
     },
     "filesGlob": [
-        "src/**/*.ts",
-        "!ignored/**/*.ts"
-    ],
-    /* GENERATED: DON'T EDIT */
-    "files": [
+        "../src/**/*.ts",
+        "!../src/ignored/**/*.ts"
     ]
 }
