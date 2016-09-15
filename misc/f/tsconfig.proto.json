@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "dist"
+    },
+    "include": [
+        "../src/**/*.ts"
+    ],
+    "exclude": [
+        "../src/ignored/**/*.ts"
+    ]
+}

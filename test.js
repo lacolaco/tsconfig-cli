@@ -11,12 +11,13 @@ describe("tsconfig result", () => {
       "misc/b/tsconfig.json",
       "misc/d/my-tsconfig.json",
       "misc/e/tsconfig.json",
+      "misc/f/tsconfig.json",
     ];
 
     list.forEach(path => {
-      if (fs.existsSync(path)) {
+      try {
         fs.unlinkSync(path);
-      }
+      } catch (e) {}
     });
   });
 
@@ -25,12 +26,13 @@ describe("tsconfig result", () => {
       "misc/b/tsconfig.json",
       "misc/d/my-tsconfig.json",
       "misc/e/tsconfig.json",
+      "misc/f/tsconfig.json",
     ];
 
     list.forEach(path => {
-      if (fs.existsSync(path)) {
+      try {
         fs.unlinkSync(path);
-      }
+      } catch (e) {}
     });
   });
 
@@ -94,6 +96,17 @@ describe("tsconfig result", () => {
       exec("cd misc/e && node ../../tsconfig -o tsconfig.json tsconfig.proto.json", () => {
         let after = fs.readFileSync("misc/e/tsconfig.json").toString();
         assert(before !== after);
+        done();
+      });
+    });
+  });
+
+  describe("case:f (has `include`)", () => {
+    it("should do nothing", (done) => {
+      let before = fs.readFileSync("misc/f/tsconfig.proto.json").toString();
+      exec("cd misc/f && node ../../tsconfig -o tsconfig.json tsconfig.proto.json", () => {
+        let after = fs.readFileSync("misc/f/tsconfig.json").toString();
+        assert(before === after);
         done();
       });
     });
