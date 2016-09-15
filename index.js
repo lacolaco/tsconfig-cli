@@ -57,6 +57,11 @@ new Promise((resolve, reject) => {
   return tsconfig
     .readFile(inputPath)
     .then(result => {
+      // Detect TS2.0
+      if (result.include) {
+        log(`${opt.inputPath} has 'include' property and 'filesGlob' is ignored.`);
+        return JSON.parse(fs.readFileSync(inputPath).toString());
+      }
       // Resolve files into relative path
       let resolved = [];
       result.files.forEach(file => {
