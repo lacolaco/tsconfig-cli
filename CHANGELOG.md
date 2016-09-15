@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/laco0416/tsconfig-cli/compare/v2.0.0...v2.1.0) (2016-09-15)
+
+
+### Features
+
+* **migrate:** Skip converting when 'include' is detected ([ec45d80](https://github.com/laco0416/tsconfig-cli/commit/ec45d80))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/laco0416/tsconfig-cli/compare/v1.0.2...v2.0.0) (2016-04-08)
 
@@ -9,7 +19,7 @@
 
 ### BREAKING CHANGES
 
-* core: 
+* core: S
 
 When you use `-u` option, an input file will be overwritten ALWAYS.
 
